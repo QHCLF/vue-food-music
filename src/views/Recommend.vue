@@ -1,0 +1,133 @@
+<template>
+    <div class="recommend">
+        <div class="banner">
+            <swiper :options="swiperOption" style="width: 100%">
+                <swiper-slide v-for="banner in banners" style="width: 100%" >
+                    <img :src="banner.imageUrl" class="bannerPic">
+                </swiper-slide>
+                <div class="swiper-pagination" slot="pagination"></div>
+            </swiper>
+        </div>
+        <div class="recommendSongs">
+            <h3>推荐歌单</h3>
+            <div v-for="item in playlists">
+                <img :src="item.coverImgUrl" class="item">
+                <span>{{item.description}}</span>
+            </div>
+        </div>
+        <div class="albums">
+            <h3>推荐专辑</h3>
+            <swiper :options="swiperOption" style="width: 100%">
+                <swiper-slide v-for="album in albums" style="width: 100%" >
+                    <img :src="album.blurPicUrl" style="width: 100%">
+                    <span class="albumTitle">{{album.name}}</span>
+                </swiper-slide>
+            </swiper>
+        </div>
+    </div>
+</template>
+
+<script>
+    import 'swiper/dist/css/swiper.css'
+    import { swiper, swiperSlide } from 'vue-awesome-swiper'
+    import {ERR_OK} from '../utill/config'
+    import {getBanner, getRecommendSongs, getAlbums} from '../api/recommend.js'
+
+
+
+    export default {
+        data(){
+            return{
+                banners: [],
+                playlists: [],
+                albums: [],
+                swiperOption: {
+                    pagination: {
+                        el: '.swiper-pagination',
+                        autoplay:true
+                    }
+                }
+            }
+        },
+        created () {
+            this._getBanner(),
+                this._getRecommendSongs(),
+                this._getAlbums()
+        },
+        methods:{
+            _getBanner () {
+                getBanner().then((res) => {
+                    if (res.status === ERR_OK) {
+                        this.banners = res.data.banners
+                    }
+                })
+            },
+            _getRecommendSongs(){
+                getRecommendSongs().then((res) =>{
+                    if(res.status === ERR_OK){
+                        this.playlists = res.data.playlists
+                    }
+                })
+            },
+            _getAlbums(){
+                getAlbums().then(res =>{
+                    if (res.status === ERR_OK) {
+                        this.albums = res.data.albums
+                    }
+                })
+            }
+        },
+        components:{
+            swiper,
+            swiperSlide
+        }
+    }
+</script>
+
+<style scoped>
+    .recommend{
+        width: 100%;
+    }
+    .banner{
+        width: 100%;
+        height: 12rem;
+    }
+    .bannerPic{
+        width: 100%;
+        height: 12rem;
+        overflow: hidden;
+    }
+    .recommendSongs{
+        width: 100%;
+        height: 20rem;
+        position: absolute;
+        margin-top: 5rem;
+    }
+    .item{
+        float: left;
+        width: 31%;
+        height: 7rem;
+        margin-right: 0.25rem;
+        margin-left: 0.25rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.3rem;
+    }
+    .recommendSongs .item img{
+        transform:scale(0.1)
+    }
+    h3{
+        width: 5rem;
+        height: 2rem;
+        margin-left: 0.4rem;
+        margin-bottom: 0;
+    }
+    .albums{
+        margin-top: 25rem;
+    }
+    .albumTitle{
+        font-size: 18px;
+    }
+
+
+</style>
