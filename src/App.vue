@@ -49,6 +49,9 @@
   a:visited{
     color: #2c3e50;
   }
+  body{
+    margin: 0;
+  }
 #app {
   width: 100%;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -56,6 +59,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  margin: 0;
 }
   #nav{
     width: 100%;

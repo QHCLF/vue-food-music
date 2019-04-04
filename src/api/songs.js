@@ -1,6 +1,11 @@
 import axios from 'axios'
 import {HOST} from '../utill/config.js'
 
+ export function getRecommend() {//获取推荐歌单
+     const url = HOST + `/personalized`
+    return axios.get(url)
+ }
+
 export function getHighSongs() {//获取精品歌单
     const url = HOST + `/top/playlist/highquality`
     return axios.get(url)
@@ -13,6 +18,11 @@ export function getChinaSongs() {//获取华语歌单
 
 export function getBalladSongs() {//获取民谣歌单
     const url = HOST + `/top/playlist?tag=民谣&order=new`
+    return axios.get(url)
+}
+
+export function getSoftSongs() {//获取轻音乐（因为发现接口有问题，于是就不一样就行了，哈哈尴尬）
+    const url = HOST + `/top/playlist/highquality?before=1503639064232`
     return axios.get(url)
 }
 

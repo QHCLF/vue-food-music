@@ -1,6 +1,6 @@
 <template>
   <div class="music-header">
-    <span class="header-back" @click="$router.go(-1)">
+    <span class="header-back" @click="$router.go(-(counts))">
       <i class="iconfont icon-fanhui" id="back"></i>
     </span>
     <div class="header-title">
@@ -16,7 +16,10 @@
     props: {
       title: {
         type: String,
-        required: true
+        required: true,
+      },
+      counts : {
+        type: Number
       }
     }
   }

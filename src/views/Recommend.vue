@@ -12,7 +12,6 @@
             <h3>推荐歌单</h3>
             <div v-for="item in playlists">
                 <img :src="item.coverImgUrl" class="item">
-                <span>{{item.description}}</span>
             </div>
         </div>
         <div class="albums">
@@ -91,6 +90,7 @@
     .banner{
         width: 100%;
         height: 12rem;
+        margin-top: 4rem;
     }
     .bannerPic{
         width: 100%;
@@ -101,7 +101,7 @@
         width: 100%;
         height: 20rem;
         position: absolute;
-        margin-top: 5rem;
+        margin-top: 1rem;
     }
     .item{
         float: left;
@@ -117,13 +117,14 @@
         transform:scale(0.1)
     }
     h3{
-        width: 5rem;
+        width: 100%;
         height: 2rem;
-        margin-left: 0.4rem;
+        margin-left: 0.5rem;
+        text-align: left;
         margin-bottom: 0;
     }
     .albums{
-        margin-top: 25rem;
+        margin-top: 20.6rem;
     }
     .albumTitle{
         font-size: 18px;

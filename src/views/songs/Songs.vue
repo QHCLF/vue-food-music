@@ -1,30 +1,30 @@
 <template>
     <div class="songs">
-        <header-back :title="title"></header-back>
+        <header-back :title="title" :counts="counts"></header-back>
         <nav class="songs-tab">
-            <div class="tab-item">
-                <router-link to="/songsRecommend" class="router-link">
+            <div class="tab-item" @click="count">
+                <router-link to="/songsRecommend" class="router-link" >
                     <span>推荐</span>
                 </router-link>
             </div>
-            <div class="tab-item">
-                <router-link to="/songsHigh" class="router-link">
+            <div class="tab-item" @click="count">
+                <router-link to="/songsHigh" class="router-link" >
                     <span>精品</span>
                 </router-link>
             </div>
-            <div class="tab-item">
-                <router-link to="/songsChina" class="router-link">
+            <div class="tab-item" @click="count">
+                <router-link to="/songsChina" class="router-link" >
                     <span>华语</span>
                 </router-link>
             </div>
-            <div class="tab-item">
-                <router-link to="/songsBallad" class="router-link">
+            <div class="tab-item" @click="count">
+                <router-link to="/songsBallad" class="router-link" >
                     <span>民谣</span>
                 </router-link>
             </div>
 
-            <div class="tab-item">
-                <router-link to="/songsSoft" class="router-link">
+            <div class="tab-item" @click="count">
+                <router-link to="/songsSoft" class="router-link" >
                     <span>轻音乐</span>
                 </router-link>
             </div>
@@ -43,7 +43,14 @@
         name: 'songs',
         data(){
             return{
-                title: "歌单广场"
+                title: "歌单广场",
+                counts: 1
+            }
+        },
+        methods:{
+            count(){
+                this.counts++;
+                return this.counts;
             }
         },
         components: {

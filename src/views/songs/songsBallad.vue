@@ -38,7 +38,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
         overflow-y: scroll;
     }
     .contain{
