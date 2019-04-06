@@ -11,6 +11,11 @@ export function getRecommendSongs() {//获取推荐歌单
     return axios.get(url)
 }
 
+export function getRecommendListDetail (id) {//获取歌单详情
+    const url = HOST + `/playlist/detail?id=${id}`
+    return axios.get(url)
+}
+
 export function getAlbums() {//获取推荐专辑
     const url = HOST +  `/album/newest?limit=16`
     return axios.get(url)
