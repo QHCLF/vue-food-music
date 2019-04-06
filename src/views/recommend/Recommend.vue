@@ -2,35 +2,39 @@
     <div class="recommend">
         <div class="banner">
             <swiper :options="swiperOption" style="width: 100%">
-                <swiper-slide v-for="banner in banners" style="width: 100%" >
+                <swiper-slide v-for="banner in banners" :key="banner.id" style="width: 100%" >
                     <img :src="banner.imageUrl" class="bannerPic">
                 </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
-        <div class="recommendSongs">
-            <h3>推荐歌单</h3>
-            <div v-for="item in playlists">
-                <img :src="item.coverImgUrl" class="item">
+        <h3>推荐歌单</h3>
+        <transition-group class="recommendSongs">
+            <div v-for="item in playlists" :key="item.id" @click="selectSongs(item)">
+                <img :src="item.coverImgUrl" class="item" >
             </div>
-        </div>
+        </transition-group>
+
         <div class="albums">
             <h3>推荐专辑</h3>
             <swiper :options="swiperOption" style="width: 100%">
-                <swiper-slide v-for="album in albums" style="width: 100%" >
+                <swiper-slide v-for="album in albums" :key="album.id" style="width: 100%" >
                     <img :src="album.blurPicUrl" style="width: 100%">
                     <span class="albumTitle">{{album.name}}</span>
                 </swiper-slide>
             </swiper>
         </div>
+
+        <router-view />
     </div>
 </template>
 
 <script>
     import 'swiper/dist/css/swiper.css'
     import { swiper, swiperSlide } from 'vue-awesome-swiper'
-    import {ERR_OK} from '../utill/config'
-    import {getBanner, getRecommendSongs, getAlbums} from '../api/recommend.js'
+    import {ERR_OK} from '../../utill/config'
+    import {getBanner, getRecommendSongs, getAlbums} from '../../api/recommend.js'
+    import {mapMutations} from 'vuex'
 
 
 
@@ -74,7 +78,15 @@
                         this.albums = res.data.albums
                     }
                 })
-            }
+            },
+            selectSongs (item) {
+                this.$router.push(`${this.$route.path + item.id}`);
+                this.setTopList(item);
+            },
+            ...mapMutations({
+                setTopList: 'SET_TOP_LIST'
+            })
+
         },
         components:{
             swiper,
@@ -100,12 +112,19 @@
     .recommendSongs{
         width: 100%;
         height: 20rem;
-        position: absolute;
         margin-top: 1rem;
+    }
+
+    .recommendSongs div{
+        width: 7rem;
+        height: 7rem;
+        float: left;
+        margin-bottom: 1rem;
+        margin-right: 0.3rem;
     }
     .item{
         float: left;
-        width: 31%;
+        width: 6.97rem;
         height: 7rem;
         margin-right: 0.25rem;
         margin-left: 0.25rem;
@@ -129,6 +148,7 @@
     .albumTitle{
         font-size: 18px;
     }
+
 
 
 </style>

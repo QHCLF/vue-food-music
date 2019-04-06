@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 // import Home from './views/Home.vue'
-import recommend from './views/Recommend.vue'
+import recommend from './views/recommend/Recommend.vue'
 
 
 Vue.use(Router)
@@ -24,7 +24,14 @@ export default new Router({
     {
       path: '/',
       name: 'recommend',
-      component: recommend
+      component: recommend,
+      children: [
+        {
+          path: ":detailId",
+          name: "detailInfo",
+          component: () => import('./views/recommend/RecommendDetail.vue')
+        }
+      ]
     },
     {
       path: '/song',
