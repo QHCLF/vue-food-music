@@ -7,21 +7,26 @@
                 <span class="name">{{this.topList.name}}</span>
                 <div>{{this.topList.description}}</div>
             </div>
-
         </div>
+        <playList class="bottom"></playList>
     </div>
 </template>
 
 <script>
+     import {getSongsDtail} from '../../api/songs.js'
     import {getRecommendListDetail} from '../../api/recommend.js'
     import HeaderBack from '@/components/Header.vue'
+    import playList from '@/components/playList.vue'
     import {ERR_OK} from '../../utill/config'
     import {mapGetters, mapMutations} from 'vuex'
     export default {
         data(){
             return{
                 title: "歌单",
-                counts: 1
+                counts: 1,
+                detail: null,
+                songs: [],
+                temp: []
             }
         },
         created (){
@@ -32,11 +37,18 @@
                 const Id = this.topList.id
                 getRecommendListDetail(Id).then(res =>{
                     if (res.status === ERR_OK) {
-                        this.setItem(res.data.playlist);
+                        this.temp = res.data.playlist.trackIds.map((item) => {
+                            return getSongsDtail(item.id).then(res =>{
+                                 this.songs.push(res.data.songs)
+                            })
+                        })
+                        this.detail = res.data.playlist;
+                        this.setItem(this.songs);
                     }
 
                 })
-            },
+
+             },
             ...mapMutations({
                 setItem: 'SET_ITEM'
             })
@@ -47,8 +59,12 @@
             ]),
 
         },
+        watch:{
+
+        },
         components:{
-            HeaderBack
+            HeaderBack,
+            playList
         }
     }
 </script>
@@ -57,7 +73,7 @@
     .recomDetail{
         width: 100%;
         height: 100%;
-        background-color: pink;
+        background-color: white;
         z-index: 100;
         position: fixed;
         left: 0;
@@ -81,9 +97,10 @@
     .recomDetail .top .discribe{
         width: 10rem;
         float: right;
-        height: 10rem;
+        height: 9.42rem;
         margin-top: 1rem;
         text-align: left;
+        overflow-y: hidden;
     }
     .recomDetail .top .discribe .name{
         width: 10rem;

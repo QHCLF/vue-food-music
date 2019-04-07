@@ -35,13 +35,26 @@
         </div>
         <span>搜索</span>
       </router-link>
-      <div>
+
+      <keep-alive>
         <router-view/>
-      </div>
+      </keep-alive>
+
+      <player></player>
+
 
     </div>
   </div>
 </template>
+
+<script>
+  import player from '@/components/player.vue'
+  export default {
+    components:{
+      player
+    }
+  }
+</script>
 
 <style>
   @import '//at.alicdn.com/t/font_1121604_g8kbr7v35u6.css';
@@ -54,6 +67,8 @@
   }
 #app {
   width: 100%;
+  height: 100%;
+  overflow-y: hidden;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

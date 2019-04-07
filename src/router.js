@@ -31,6 +31,7 @@ export default new Router({
           name: "detailInfo",
           component: () => import('./views/recommend/RecommendDetail.vue')
         }
+
       ]
     },
     {

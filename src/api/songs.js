@@ -32,7 +32,7 @@ export function getRecommendSongs() {//获取推荐歌单
 }
 
 export function getSongsDtail(id) {//获取歌曲详细信息
-    const url = HOST + `/playlist/detail?id=${id}`
+    const url = HOST + `/song/detail?ids=${id}`
     return axios.get(url)
 }
 
