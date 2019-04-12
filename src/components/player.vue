@@ -131,6 +131,7 @@
             },
             updateTime (e) {
                 this.currentTime = e.target.currentTime
+                this.playProgress = this.currentTime / this.duration;
             },
             ready () {
                 this.duration = this.$refs.audio.duration
