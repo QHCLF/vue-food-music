@@ -26,8 +26,7 @@
                                           :disableClick="false" @click="click"
                                           :disableDrag="false" @drag="drag" @dragEnd="dragEnd"/>
                         </div>
-                        <span class="total-time">{{this.duration | getTime}}</span>
-s
+                        <span class="total-time"> {{this.duration | getTime}}</span>
 
                         <div class="leftIcon">
                             <i class="iconfont icon-rewind" @click="prev"></i>
@@ -36,6 +35,8 @@ s
                                ref="audio"
                                :src = "this.url"
                                controls="controls"
+                               @timeupdate="updateTime"
+                               @canplay="ready"
                         >
                         </audio>
                         <div class="rightIcon">
@@ -96,11 +97,9 @@ s
                         this.message = res.data.message;
                     }
                  });
-
             },
             click(progress) {
                 const audioDOM = this.$refs.audio;
-                this.duration = this.$refs.audio.duration;
                 if (audioDOM.duration > 0) {
                     let currentTime = audioDOM.duration * progress;
                     this.playProgress = progress;
@@ -130,6 +129,15 @@ s
                     });
                 }
             },
+            updateTime (e) {
+                this.currentTime = e.target.currentTime
+            },
+            ready () {
+                this.duration = this.$refs.audio.duration
+            },
+
+
+
             back () {//切换mini模式
                 this.setFullScreen(false);
             },
@@ -143,21 +151,6 @@ s
                 setFullScreen: 'SET_FULL_SCREEN',
                 setCurrentIndex: 'SET_CURRENT_INDEX',
             }),
-
-            /*addEventListeners () {
-                this.$refs.audio.addEventListener('timeupdate', this._currentTime),
-                    this.$refs.audio.addEventListener('canplay', this._durationTime)
-            },
-            removeEventListeners() {
-                this.$refs.audio.removeEventListener('timeupdate', this._currentTime)
-                this.$refs.audio.removeEventListener('canplay', this._durationTime)
-            },
-            _currentTime() {
-               this.currentTime= parseInt(this.$refs.audio.currentTime)
-            },
-            _durationTime() {
-                this.duration = parseInt(this.$refs.audio.duration)
-            }*/
 
 
         },
@@ -176,22 +169,23 @@ s
                 'currentIndex',
                 'currentSong',
                 'playing',
-                'fullScreen'
+                'fullScreen',
 
             ])
 
         },
-       /* mounted() {
-            this.addEventListeners()
+        mounted() {
+
         },
         beforeDestroy() {
-            this.removeEventListeners()
+            //this.removeEventListeners()
 
-        },*/
+        },
         watch: {
             currentSong: function () {
                 this._contan();
             }
+
         },
         components:{
             ProgressBar

@@ -5,7 +5,7 @@
             <img :src="this.detail.coverImgUrl">
             <div class="discribe">
                 <span class="name">{{this.detail.name}}</span>
-                <div>{{limitNumber(this.detail.description)}}</div>
+                <div>{{this.detail.description}}</div>
             </div>
         </div>
         <playList class="bottom"></playList>
@@ -52,13 +52,13 @@
                 })
                 this.setItem(this.songs)
             },
-            limitNumber(text){
-                var str = text;
-                if(str.length > 15){
-                    str = str.substr(0, 85) + '...';
-                }
-                return str;
-            },
+            // limitNumber(text){
+            //     let str = text;
+            //     if(str.length() > 15){
+            //         str = str.substr(0, 85) + '...';
+            //     }
+            //     return str;
+            // },
 
 
             ...mapMutations({
