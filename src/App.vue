@@ -8,37 +8,35 @@
         <span>每日推荐</span>
       </router-link>
 
-      <router-link to="/song" class="tab">
+      <router-link to="song" class="tab">
         <div class="pic">
           <i class="iconfont icon-ziyuan2" ></i>
         </div>
         <span>歌单广场</span>
       </router-link>
 
-      <router-link to="/ranking" class="tab">
+      <router-link to="ranking" class="tab">
         <div class="pic">
           <i class="iconfont icon-ziyuan3"></i>
         </div>
         <span>排行榜</span>
       </router-link>
 
-      <router-link to="/dj" class="tab">
+      <router-link to="dj" class="tab">
         <div class="pic">
           <i class="iconfont icon-ziyuan1"></i>
         </div>
         <span>电台</span>
       </router-link>
 
-      <router-link to="/search" class="tab">
+      <router-link to="search" class="tab">
         <div class="pic">
           <i class="iconfont icon-sousuo"></i>
         </div>
         <span>搜索</span>
       </router-link>
 
-      <keep-alive>
-        <router-view/>
-      </keep-alive>
+       <router-view></router-view>
 
       <player></player>
 

@@ -46,6 +46,11 @@ export function getSongsUrl(id) {//获取歌曲URL
     return axios.get(url)
 }
 
+export function checked(id) {//检查是否有版权
+    const url = HOST + `/check/music?id=${id}`
+    return axios.get(url)
+}
+
 export function getLyric(id) {//获取歌词
     const url = HOST + `/lyric?id=${id}`
     return axios.get(url)

@@ -7,60 +7,49 @@ import recommend from './views/recommend/Recommend.vue'
 Vue.use(Router)
 
 export default new Router({
+  mode:'history',
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'home',
-    //   component: Home
-    // },
-    // {
-    //   path: '/about',
-    //   name: 'about',
-    //   // route level code-splitting
-    //   // this generates a separate chunk (about.[hash].js) for this route
-    //   // which is lazy-loaded when the route is visited.
-    //   component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    // }
     {
       path: '/',
       name: 'recommend',
       component: recommend,
-      children: [
-        {
-          path: ":detailId",
-          name: "detailInfo",
-          component: () => import('./views/recommend/RecommendDetail.vue')
-        }
+       children: [
+         {
+           path: ":id",
+           name: "/songDetail",
+           component: () => import('./views/recommend/RecommendDetail.vue')
+         }
 
-      ]
+       ]
     },
     {
       path: '/song',
       name: 'song',
+      redirect: '/song/songsRecommend',
       component: () => import('./views/songs/Songs.vue'),
       children:[
           {
-            path: '/songsRecommend',//推荐歌单
+            path: '/song/songsRecommend',//推荐歌单
             name: '/songsRecommend',
             component: () => import('./views/songs/SongsRecommend.vue')
         },
         {
-          path:'/songsHigh',//精品歌单
+          path:'/song/songsHigh',//精品歌单
           name:'/songsHigh',
           component: () => import('./views/songs/songsHigh.vue')
         },
         {
-          path:'/songsChina',//华语
+          path:'/song/songsChina',//华语
           name:'/songsChina',
           component: () => import('./views/songs/songsChina.vue')
         },
         {
-          path:'/songsBallad',//民谣
+          path:'/song/songsBallad',//民谣
           name:'/songsBallad',
           component: () => import('./views/songs/songsBallad.vue')
         },
         {
-          path:'/songsSoft',//轻音乐
+          path:'/song/songsSoft',//轻音乐
           name:'/songsSoft',
           component: () => import('./views/songs/songsSoft.vue')
         }

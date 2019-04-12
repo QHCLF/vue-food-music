@@ -9,7 +9,7 @@
         </div>
 
         <div class="highSongs">
-            <div v-for="playlist in playlists" class="contain">
+            <div v-for="playlist in playlists" :key="playlist.id" class="contain">
                 <img :src="playlist.coverImgUrl" class="item">
                 <span class="describe">{{playlist.name}}</span>
             </div>
@@ -50,6 +50,9 @@
         height: 100%;
         margin-top: 2rem;
         overflow-y: scroll;
+    }
+    .high::-webkit-scrollbar {
+        display: none;
     }
 
     .head{

@@ -1,5 +1,5 @@
 <template>
-    <div class="playList">
+    <div class="playList" >
 
         <div class="header">
             <span class="text">播放全部</span>
@@ -9,30 +9,44 @@
             <li class="song"
                 v-for="(song, index) in this.item"
                 :key="index"
-                @click="openSong"
+                @click="selectItem(index)"
             >
                 <div class="idcount">{{index + 1}}</div>
-                <div class="songName">{{song[0].name}}</div>
-                <div class="ar">{{song[0].ar[0].name}}-{{song[0].name}}</div>
+                <div class="songName">{{limitNumber(song[0].name)}}</div>
+                <div class="ar">{{song[0].ar[0].name}}-{{limitNumber(song[0].name)}}</div>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
         name:"playList",
         data(){
             return{
+
             }
         },
         methods:{
-            openSong (item) {
-                this.$router.push(`${this.$route.path + item.id}`);
-                this.setTopList(item);
-            }
+            selectItem (index) {
+                this.selectPlay({
+                    list: this.item,
+                    index: index
+                })
+            },
+            limitNumber(text){
+                var str = text;
+                if(str.length > 15){
+                    str = str.substr(0, 15) + '...';
+                }
+                return str;
+            },
+            ...mapActions([
+                'selectPlay'
+            ])
+
         },
         computed:{
             ...mapGetters([
@@ -65,6 +79,7 @@
         height: 2rem;
         float: left;
         margin-top: 0.2rem;
+        text-align: center;
         color: gray;
     }
     .playList .musicList .song .songName{

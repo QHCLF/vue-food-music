@@ -44,6 +44,9 @@
         margin-top: 1.5rem;
         overflow-y: scroll;
     }
+    .songsSoft::-webkit-scrollbar {
+        display: none;
+    }
     .contain{
         width: 31%;
         height: 9.5rem;

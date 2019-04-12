@@ -3,28 +3,28 @@
         <header-back :title="title" :counts="counts"></header-back>
         <nav class="songs-tab">
             <div class="tab-item" @click="count">
-                <router-link to="/songsRecommend" class="router-link" >
+                <router-link to="/song/songsRecommend" class="router-link">
                     <span>推荐</span>
                 </router-link>
             </div>
             <div class="tab-item" @click="count">
-                <router-link to="/songsHigh" class="router-link" >
+                <router-link to="/song/songsHigh" class="router-link" >
                     <span>精品</span>
                 </router-link>
             </div>
             <div class="tab-item" @click="count">
-                <router-link to="/songsChina" class="router-link" >
+                <router-link to="/song/songsChina" class="router-link" >
                     <span>华语</span>
                 </router-link>
             </div>
             <div class="tab-item" @click="count">
-                <router-link to="/songsBallad" class="router-link" >
+                <router-link to="/song/songsBallad" class="router-link" >
                     <span>民谣</span>
                 </router-link>
             </div>
 
             <div class="tab-item" @click="count">
-                <router-link to="/songsSoft" class="router-link" >
+                <router-link to="/song/songsSoft" class="router-link" >
                     <span>轻音乐</span>
                 </router-link>
             </div>
@@ -65,7 +65,7 @@
     .songs
         width: 100%;
         height: 100%;
-        z-index: 100;
+        z-index: 100000;
         position: fixed;
         left: 0;
         top: 0;

@@ -42,6 +42,9 @@
         margin-top: 1.5rem;
         overflow-y: scroll;
     }
+    .songsChina::-webkit-scrollbar {
+        display: none;
+    }
     .contain{
         width: 31%;
         height: 9rem;

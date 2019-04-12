@@ -98,11 +98,21 @@
 <style scoped>
     .recommend{
         width: 100%;
+        height: 100%;
+        margin-top: 5.2rem;
+        z-index: 100;
+        background-color: white;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: scroll;
+    }
+    .recommend::-webkit-scrollbar {
+        display: none;
     }
     .banner{
         width: 100%;
         height: 12rem;
-        margin-top: 4rem;
     }
     .bannerPic{
         width: 100%;
@@ -143,7 +153,9 @@
         margin-bottom: 0;
     }
     .albums{
-        margin-top: 20.6rem;
+        width: 100%;
+        height: 33rem;
+        margin-top: 17.6rem;
     }
     .albumTitle{
         font-size: 18px;

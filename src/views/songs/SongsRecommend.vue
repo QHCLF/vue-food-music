@@ -86,6 +86,9 @@
         margin-top: 1rem;
         overflow-y: scroll;
     }
+    .recommend::-webkit-scrollbar {
+        display: none;
+    }
 
     ul{
         list-style: none;

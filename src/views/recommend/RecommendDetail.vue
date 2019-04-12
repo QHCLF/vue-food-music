@@ -2,10 +2,10 @@
     <div class="recomDetail">
         <header-back :title="title" :counts="counts"></header-back>
         <div class="top">
-            <img :src="this.topList.coverImgUrl">
+            <img :src="this.detail.coverImgUrl">
             <div class="discribe">
-                <span class="name">{{this.topList.name}}</span>
-                <div>{{this.topList.description}}</div>
+                <span class="name">{{this.detail.name}}</span>
+                <div>{{limitNumber(this.detail.description)}}</div>
             </div>
         </div>
         <playList class="bottom"></playList>
@@ -16,8 +16,8 @@
      import {getSongsDtail} from '../../api/songs.js'
     import {getRecommendListDetail} from '../../api/recommend.js'
     import HeaderBack from '@/components/Header.vue'
-    import playList from '@/components/playList.vue'
-    import {ERR_OK} from '../../utill/config'
+     import playList from '@/components/playList.vue'
+    // import {ERR_OK} from '../../utill/config'
     import {mapGetters, mapMutations} from 'vuex'
     export default {
         data(){
@@ -33,22 +33,34 @@
             this._getRecommendListDetail()
         },
         methods:{
+            async  getData(){
+                await this._getLIST();
+            },
             _getRecommendListDetail(){
-                const Id = this.topList.id
+                const Id = this.$route.params.id
                 getRecommendListDetail(Id).then(res =>{
-                    if (res.status === ERR_OK) {
-                        this.temp = res.data.playlist.trackIds.map((item) => {
-                            return getSongsDtail(item.id).then(res =>{
-                                 this.songs.push(res.data.songs)
-                            })
-                        })
                         this.detail = res.data.playlist;
-                        this.setItem(this.songs);
-                    }
-
+                        this.getData()
                 })
 
              },
+            _getLIST(){
+                this.detail.trackIds.map((item) => {
+                    getSongsDtail(item.id).then(res =>{
+                        this.songs.push(res.data.songs)
+                    })
+                })
+                this.setItem(this.songs)
+            },
+            limitNumber(text){
+                var str = text;
+                if(str.length > 15){
+                    str = str.substr(0, 85) + '...';
+                }
+                return str;
+            },
+
+
             ...mapMutations({
                 setItem: 'SET_ITEM'
             })
@@ -79,6 +91,9 @@
         left: 0;
         top: 0;
         overflow-y: scroll;
+    }
+    .recomDetail::-webkit-scrollbar {
+        display: none;
     }
     .recomDetail .top{
         width: 22rem;
