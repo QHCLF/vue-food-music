@@ -12,14 +12,17 @@
                     </div>
                     <div class="middle">
                         <transition name="middleL">
+
                             <div class="middleL">
-                                <img :src="currentSong[0].al.picUrl" class="image" >
+                                <div class="img" ref="songImg">
+                                    <img :src="currentSong[0].al.picUrl" class="image" />
+                                </div>
                             </div>
 
                          </transition>
                     </div>
-                    <div class="bottom">
 
+                    <div class="bottom">
                         <span class="current-time">{{this.currentTime | getTime}}</span>
                         <div class="play-progress">
                             <progress-bar :progress="playProgress"
@@ -28,20 +31,28 @@
                         </div>
                         <span class="total-time"> {{this.duration | getTime}}</span>
 
+                        <div class="play-model-button">
+                            <i class="iconfont icon-xunhuanbofang"></i>
+                        </div>
+
                         <div class="leftIcon">
-                            <i class="iconfont icon-rewind" @click="prev"></i>
+                            <i class="iconfont icon-yduishangyiqu" @click="prev"></i>
+                        </div>
+
+                        <div class="playorpause" @click="playOrPause">
+                            <i :class="playButtonClass"></i>
+                        </div>
+
+                        <div class="rightIcon">
+                            <i class="iconfont icon-yduixiayiqu" @click="next"></i>
                         </div>
                         <audio id="music-audio"
                                ref="audio"
                                :src = "this.url"
-                               controls="controls"
                                @timeupdate="updateTime"
                                @canplay="ready"
                         >
                         </audio>
-                        <div class="rightIcon">
-                            <i class="iconfont icon-forward" @click="next"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -78,7 +89,10 @@
                 url: '',
                 playProgress: 0,
                 currentTime: 0,
-                duration: 0
+                duration: 0,
+                playStatus: false,
+                currentPlayMode: 0
+
 
             }
         },
@@ -97,6 +111,29 @@
                         this.message = res.data.message;
                     }
                  });
+            },
+            playOrPause() {
+                if (this.playStatus === false) {
+                    this.$refs.audio.play();
+                    this.playStatus = true;
+                    this._startImgRotate();
+                } else {
+                    this.$refs.audio.pause();
+                    this.playStatus = false;
+                    this._stopImgRotate();
+                }
+            },
+            _startImgRotate() {
+                if (this.$refs.songImg.className.indexOf("rotate") === -1) {
+                    this.$refs.songImg.classList.add("rotate");
+                } else {
+                    this.$refs.songImg.style.webkitAnimationPlayState = "running";
+                    this.$refs.songImg.style.animationPlayState = "running";
+                }
+            },
+            _stopImgRotate() {
+                this.$refs.songImg.style.webkitAnimationPlayState = "paused";
+                this.$refs.songImg.style.animationPlayState = "paused";
             },
             click(progress) {
                 const audioDOM = this.$refs.audio;
@@ -172,8 +209,10 @@
                 'playing',
                 'fullScreen',
 
-            ])
-
+            ]),
+            playButtonClass() {
+                return this.playStatus === true ? "iconfont icon-zanting1-copy" : "iconfont icon-yduibofang";
+            }
         },
         mounted() {
 
@@ -204,8 +243,8 @@
     }
 </script>
 
-<style>
-    @import '//at.alicdn.com/t/font_1121604_zt2hp3lbc0j.css';
+<style lang="stylus" scoped>
+    @import '//at.alicdn.com/t/font_1121604_0v2xs37dtth.css';
 
     .player{
         width: 100%;
@@ -282,4 +321,27 @@
         position: fixed;
         bottom: 0;
     }
+    &.normal-enter-active, &.normal-leave-active{
+        transition: transform .3s
+        transform: rotateZ(0deg) translate3d(0, 0, 0)
+    }
+
+    &.normal-enter, &.normal-leave-to{
+        transform: rotateZ(30deg) translate3d(100%, 0, 0)
+    }
+
+    @keyframes rotate{
+        0%{
+        transform: rotateZ(0deg);
+         }
+        100%{
+         transform : rotateZ(360deg);
+         }
+    }
+
+    .img.rotate{
+        animation : rotate 15s linear infinite;
+    }
+
+
 </style>

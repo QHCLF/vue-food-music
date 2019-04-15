@@ -8,7 +8,7 @@
         <span>每日推荐</span>
       </router-link>
 
-      <router-link to="song" class="tab">
+      <router-link to="/song" class="tab">
         <div class="pic">
           <i class="iconfont icon-ziyuan2" ></i>
         </div>

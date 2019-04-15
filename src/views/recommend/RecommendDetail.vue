@@ -26,21 +26,19 @@
                 counts: 1,
                 detail: null,
                 songs: [],
-                temp: []
+                temp: [],
+                id: this.$route.params.detailId
             }
         },
         created (){
             this._getRecommendListDetail()
         },
         methods:{
-            async  getData(){
-                await this._getLIST();
-            },
             _getRecommendListDetail(){
-                const Id = this.$route.params.id
+                const Id = this.id
                 getRecommendListDetail(Id).then(res =>{
                         this.detail = res.data.playlist;
-                        this.getData()
+                        this._getLIST();
                 })
 
              },

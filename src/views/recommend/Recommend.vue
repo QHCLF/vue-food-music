@@ -80,7 +80,7 @@
                 })
             },
             selectSongs (item) {
-                this.$router.push(`${this.$route.path + item.id}`);
+                this.$router.push(`${this.$route.path + 'recommend/' + item.id}`);
                 this.setTopList(item);
             },
             ...mapMutations({
