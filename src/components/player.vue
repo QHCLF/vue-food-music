@@ -31,8 +31,8 @@
                         </div>
                         <span class="total-time"> {{this.duration | getTime}}</span>
 
-                        <div class="play-model-button">
-                            <i class="iconfont icon-xunhuanbofang"></i>
+                        <div class="play-model-button" @click="changePlayMode">
+                            <i :class="'iconfont ' + this.playModes[this.currentPlayMode]"></i>
                         </div>
 
                         <div class="leftIcon">
@@ -82,6 +82,7 @@
     import {getSongsUrl, checked} from "../api/songs";
     import ProgressBar from "./ProgressBar"
     import {mapGetters, mapMutations} from 'vuex'
+
     export default {
         data(){
             return{
@@ -91,9 +92,9 @@
                 currentTime: 0,
                 duration: 0,
                 playStatus: false,
-                currentPlayMode: 0
-
-
+                currentPlayMode: 0,
+                toastShow: false,
+                playModes:['icon-xunhuanbofang', 'icon-suijibofang', 'icon-danquxunhuan']
             }
         },
         created(){
@@ -173,20 +174,24 @@
             ready () {
                 this.duration = this.$refs.audio.duration
             },
-
-
-
             back () {//切换mini模式
                 this.setFullScreen(false);
             },
             prev(){//点击上一曲
                 if (this.playlist.length > 0 && this.playlist.length !== 1) {
                     let currentIndex = this.currentIndex;
-                    if (currentIndex === 0) {
-                        currentIndex = 0;
-                    }else{
-                        currentIndex = currentIndex - 1;
-                    } 
+                    if(this.currentPlayMode === 0){
+                        if (currentIndex === 0) {
+                          currentIndex = 0;
+                        }else{
+                             currentIndex = currentIndex - 1;
+                        }
+                    }else if(this.currentPlayMode === 1){
+                        currentIndex = parseInt(Math.random() * this.playlist.length, 10);
+                    }else {  // 单曲循环
+                        this.$refs.audio.play();
+                        return;
+                    }
                     this.setCurrentIndex(currentIndex)
                     this.playProgress = 0;
                 }
@@ -194,13 +199,38 @@
             next() {//点击下一曲
                 if (this.playlist.length > 0 && this.playlist.length !== 1) {
                     let currentIndex = this.currentIndex;
-                    if (currentIndex === this.playlist.length - 1) {
-                        currentIndex = 0;
-                    }else{
-                        currentIndex = currentIndex + 1;
+                    if(this.currentPlayMode === 0){
+                        if (currentIndex === this.playlist.length - 1) {
+                            currentIndex = 0;
+                        }else{
+                            currentIndex = currentIndex + 1;
+                        }
+                    }else if(this.currentPlayMode === 1){
+                        currentIndex = parseInt(Math.random() * this.playlist.length, 10);
+                    }else {  // 单曲循环
+                        this.$refs.audio.play();
+                        return;
                     }
                     this.setCurrentIndex(currentIndex)
                     this.playProgress = 0;
+                }
+            },
+            changePlayMode() {
+                if (this.currentPlayMode === 2) {
+                    this.currentPlayMode = 0;
+                } else {
+                    this.currentPlayMode = this.currentPlayMode + 1;
+                }
+                switch (this.currentPlayMode) {
+                    case 0://列表播放
+                        this.$refs.audio.play();
+                        break;
+                    case 1://随机播放
+                        this.$refs.audio.play();
+                        break;
+                    case 2://单曲循环
+                        this.$refs.audio.play();
+                        break;
                 }
             },
 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8c3e0225-f893-4364-a41b-403f693bc8b2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/assets/logo.png" beforeDir="false" />
+    <list default="true" id="8c3e0225-f893-4364-a41b-403f693bc8b2" name="Default Changelist" comment="add">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/player.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/player.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/songs/SongsRecommend.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/songs/SongsRecommend.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -20,8 +19,23 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/player.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="185" column="16" selection-start-line="185" selection-start-column="16" selection-end-line="185" selection-end-column="16" />
+            <state relative-caret-position="467">
+              <caret line="232" column="48" selection-start-line="232" selection-start-column="48" selection-end-line="232" selection-end-column="48" />
+              <folding>
+                <element signature="e#3294#3344#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/views/Ranking.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1334">
+              <caret line="2" column="67" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="67" />
+              <folding>
+                <element signature="e#1918#1966#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -135,13 +149,6 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="recommend" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="vue-food-music" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-food-music" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="songs" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -223,7 +230,7 @@
       <workItem from="1555205156453" duration="4120000" />
       <workItem from="1555292150203" duration="1800000" />
       <workItem from="1555314964701" duration="1238000" />
-      <workItem from="1555412225788" duration="3527000" />
+      <workItem from="1555412225788" duration="6908000" />
     </task>
     <task id="LOCAL-00001" summary="first add">
       <created>1554283260305</created>
@@ -295,11 +302,25 @@
       <option name="project" value="LOCAL" />
       <updated>1555292195378</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="add">
+      <created>1555415959101</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1555415959101</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add">
+      <created>1555416446469</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1555416446469</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="179488000" />
+    <option name="totallyTimeSpent" value="182869000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -312,13 +333,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1005" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.80755395" visible="true" weight="0.15669666" />
-      <window_info id="Structure" order="2" sideWeight="0.19244604" side_tool="true" visible="true" weight="0.15669666" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.8448485" visible="true" weight="0.15669666" />
+      <window_info id="Structure" order="2" sideWeight="0.15515152" side_tool="true" visible="true" weight="0.15669666" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.32969698" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="2" visible="true" weight="0.3260606" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.3260606" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
@@ -405,16 +427,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Search.vue">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Ranking.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="2" column="67" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="67" />
-          <folding>
-            <element signature="e#1918#1966#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
@@ -598,17 +610,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/player.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="185" column="16" selection-start-line="185" selection-start-column="16" selection-end-line="185" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/ProgressBar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="609">
           <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Ranking.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1334">
+          <caret line="2" column="67" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="67" />
+          <folding>
+            <element signature="e#1918#1966#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/player.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="232" column="48" selection-start-line="232" selection-start-column="48" selection-end-line="232" selection-end-column="48" />
+          <folding>
+            <element signature="e#3294#3344#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
