@@ -186,7 +186,7 @@
                         currentIndex = 0;
                     }else{
                         currentIndex = currentIndex - 1;
-                    }
+                    } 
                     this.setCurrentIndex(currentIndex)
                     this.playProgress = 0;
                 }
