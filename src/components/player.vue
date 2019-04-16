@@ -180,9 +180,28 @@
                 this.setFullScreen(false);
             },
             prev(){//点击上一曲
-
+                if (this.playlist.length > 0 && this.playlist.length !== 1) {
+                    let currentIndex = this.currentIndex;
+                    if (currentIndex === 0) {
+                        currentIndex = 0;
+                    }else{
+                        currentIndex = currentIndex - 1;
+                    }
+                    this.setCurrentIndex(currentIndex)
+                    this.playProgress = 0;
+                }
             },
             next() {//点击下一曲
+                if (this.playlist.length > 0 && this.playlist.length !== 1) {
+                    let currentIndex = this.currentIndex;
+                    if (currentIndex === this.playlist.length - 1) {
+                        currentIndex = 0;
+                    }else{
+                        currentIndex = currentIndex + 1;
+                    }
+                    this.setCurrentIndex(currentIndex)
+                    this.playProgress = 0;
+                }
             },
 
             ...mapMutations({
@@ -342,6 +361,15 @@
     .img.rotate{
         animation : rotate 15s linear infinite;
     }
+
+
+    .bottom .rightIcon{
+        width: 5rem;
+        margin-top 0;
+    }
+
+
+
 
 
 </style>

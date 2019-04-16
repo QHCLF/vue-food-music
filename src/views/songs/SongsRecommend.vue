@@ -78,7 +78,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .recommend{
         position: fixed;
         width: 100%;
