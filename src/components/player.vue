@@ -46,13 +46,6 @@
                         <div class="rightIcon">
                             <i class="iconfont icon-yduixiayiqu" @click="next"></i>
                         </div>
-                        <audio id="music-audio"
-                               ref="audio"
-                               :src = "this.url"
-                               @timeupdate="updateTime"
-                               @canplay="ready"
-                        >
-                        </audio>
                     </div>
                 </div>
             </div>
@@ -61,17 +54,35 @@
         <transition name="mini">
             <div class="mini-player" v-show="!fullScreen">
                 <div class="icon">
-<!--                    <img :src="currentSong[0].al.picUrl" width="40px" height="40px">-->
+                    <transition name="miniPic">
+                            <div class="img" ref="miniPic">
+                                <img :src="currentSong[0].al.picUrl" class="image"  width="40px" height="40px"/>
+                            </div>
+                    </transition>
+<!--                    <img :src="currentSong[0].al.picUrl" class="miniIcon" width="40px" height="40px">-->
                 </div>
                <div class="text">
-<!--                   <h2 class="title" v-html="currentSong[0].name"></h2>-->
-<!--                   <h4 class="subTitle" v-html="currentSong[0].ar[0].name"></h4>-->
+                   <p class="title" v-html="currentSong[0].name"></p>
+                   <p class="singer" v-html="currentSong[0].ar[0].name"></p>
                 </div>
-                <div class="contorl">
-                    <audio ref="hh" id="song" src="this.url"></audio>
+                <div class="contorl" @click="playOrPause">
+                    <i :class="playButtonClass"></i>
                 </div>
+
+                <div class="next">
+                    <i class="iconfont icon-yduixiayiqu" @click="next"></i>
+                </div>
+
             </div>
         </transition>
+
+        <audio id="music-audio"
+               ref="audio"
+               :src = "this.url"
+               @timeupdate="updateTime"
+               @canplay="ready"
+        >
+        </audio>
 
     </div>
 
@@ -294,14 +305,16 @@
 
 <style lang="stylus" scoped>
     @import '//at.alicdn.com/t/font_1121604_0v2xs37dtth.css';
-
+    i{
+        font-size 32px;
+    }
     .player{
         width: 100%;
         position: fixed;
         left: 0;
         right: 0;
         top: 0;
-        z-index: 150;
+        z-index: 1500;
         background-color: pink;
         overflow-y: hidden;
     }
@@ -337,6 +350,25 @@
         border-radius: 50%;
         border: 0.5rem solid gray;
     }
+    .play-progress{
+        width 70%;
+        margin-left 15%;
+    }
+
+    .current-time{
+        width: 5%;
+        height: 3px;
+        position: relative;
+        left: -10rem;
+        top: 0.65rem;
+    }
+    .total-time{
+        width: 5%;
+        height: 3px;
+        position: relative;
+        left: 10rem;
+        top: -0.65rem;
+    }
     .image{
         width: 100%;
         height: 100%;
@@ -347,21 +379,33 @@
         width: 100%;
         height: 11rem;
     }
-    .bottom audio{
-        margin-top: 3rem;
+
+    .play-model-button{
+        width 10%
+        margin-left 1rem
+        margin-top 1rem
+    }
+
+    .playorpause{
+        width: 10%;
+        position: relative;
+        left: 9rem;
+        top: -4.21rem;
     }
     .bottom .leftIcon{
         width: 2rem;
         height: 2rem;
         position: relative;
-        top: 6rem;
+        left: 5rem;
+        top: -2.2rem;
+
     }
 
     .bottom .rightIcon{
-        width: 2rem;
-        height: 2rem;
-        margin-top: 4rem;
-        float: right;
+        width: 10%;
+        position: relative;
+        top: -6.5rem;
+        left: 13rem;
     }
     .mini-player{
         width: 100%;
@@ -369,6 +413,48 @@
         background-color: #42b983;
         position: fixed;
         bottom: 0;
+    }
+    .mini-player .icon{
+        width: 18%;
+        height: 100%;
+        float: left;
+    }
+        .mini-player .text{
+            width: 50%;
+            height: 100%;
+            background-color: pink;
+            margin-left 20%;
+        }
+            .mini-player .text .title{
+                width: 100%;
+                margin 0;
+                text-align left;
+                box-sizing: border-box;
+                padding-top: 1rem;
+                height: 50%;
+                background-color: gray;
+            }
+                .mini-player .text .singer{
+                    width: 100%;
+                    height 35%;
+                    margin 0;
+                    text-align left
+                    background-color pink;
+                }
+
+    .contorl{
+        width: 30px;
+        float: right;
+        margin-top: -58px;
+        margin-right: 80px;
+        background-color: beige;
+    }
+
+    .next{
+        width: 30px;
+        float: right;
+        margin-top: -58px;
+        margin-right 30px;
     }
     &.normal-enter-active, &.normal-leave-active{
         transition: transform .3s
@@ -390,12 +476,6 @@
 
     .img.rotate{
         animation : rotate 15s linear infinite;
-    }
-
-
-    .bottom .rightIcon{
-        width: 5rem;
-        margin-top 0;
     }
 
 
