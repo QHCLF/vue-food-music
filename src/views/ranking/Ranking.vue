@@ -6,6 +6,7 @@
             <ul>
                 <li class="item" v-for="(item, index) in yunTopList"
                     :key="index"
+                    @click="selectSongs(item)"
                 >
                     <img :src="item.coverImgUrl">
                     <ul class="songlist">
@@ -24,7 +25,7 @@
         <div class="recommendRanking">
             <h3>推荐榜</h3>
             <div class="Songs">
-                <div v-for="item in recommendTop" :key="item.id" class="contain">
+                <div v-for="item in recommendTop" :key="item.id" class="contain" @click="selectSongs(item)">
                     <img :src="item.coverImgUrl"  class="item">
                     <span class="describe">{{item.name}}</span>
                 </div>
@@ -34,7 +35,7 @@
         <div class="globalRanking">
             <h3>全球榜</h3>
             <div class="Songs">
-                <div v-for="(item, index) in globalTop" :key="index" class="contain">
+                <div v-for="(item, index) in globalTop" :key="index" class="contain" @click="selectSongs(item)">
                     <img :src="item.coverImgUrl"  class="item">
                     <span class="describe">{{item.name}}</span>
                 </div>
@@ -43,18 +44,21 @@
         <div class="moreRanking">
             <h3>更多榜单</h3>
             <div class="Songs">
-                <div v-for="item in moreTop" :key="item.id" class="contain">
+                <div v-for="item in moreTop" :key="item.id" class="contain" @click="selectSongs(item)">
                     <img :src="item.coverImgUrl"  class="item">
                     <span class="describe">{{item.name}}</span>
                 </div>
             </div>
         </div>
+
+        <router-view />
     </div>
 </template>
 
 <script>
     import HeaderBack from '@/components/Header.vue'
-    import {getTop} from '../api/ranking.js'
+    import {getTop} from '../../api/ranking.js'
+    import {mapMutations} from 'vuex'
 
     const YUNMUSIC_TOP = [3, 1, 0, 2, 17]
     const RECOMMEND_TOP = [23, 22, 18, 15, 21, 7]
@@ -106,6 +110,13 @@
                     })
                 }
             },
+            selectSongs (item) {
+                this.$router.push(`${'ranking/' + item.id}`);
+                this.setTopList(item);
+            },
+            ...mapMutations({
+                setTopList: 'SET_TOP_LIST'
+            })
         },
         components:{
             HeaderBack

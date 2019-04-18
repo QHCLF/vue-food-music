@@ -2,10 +2,11 @@
     <div class="recommend">
         <div class="slider" v-on:mouseover="stop()" v-on:mouseout="move()">
             <div class="show">
-                <transition-group tag="ul" name="image">
+                <transition-group tag="ul" name="image" >
                     <li v-for="(item, index) in result"
                         v-bind:key="index"
                         :class="index===mark ? 'current' : 'ordinary'"
+                        @click="selectSong(item)"
                     >
                         <div :class="index===mark ? 'null' : 'mengc'"></div>
                         <img :src="item.picUrl">
@@ -16,7 +17,7 @@
         </div>
 
         <div class="Songs">
-            <div v-for="(item, index) in left" :key="index" class="contain">
+            <div v-for="(item, index) in left" :key="index" class="contain" @click="selectSong(item)">
                 <img :src="item.picUrl"  class="item">
                 <span class="describeitem">{{item.name}}</span>
             </div>
@@ -32,6 +33,7 @@
 <script>
     import {ERR_OK} from '../../utill/config'
     import {getRecommend} from '../../api/songs.js'
+    import {mapMutations} from 'vuex'
 
     export default {
         name: "recommendSongs",
@@ -73,7 +75,14 @@
               },
               move(){
                   this.timer = setInterval(this.atuoPlayAdd, 5000)
-              }
+              },
+            selectSong (item) {
+                this.$router.push(`${'songDetail/' + item.id}`);
+                this.setTopList(item);
+            },
+            ...mapMutations({
+                setTopList: 'SET_TOP_LIST'
+            })
         }
     }
 </script>

@@ -119,15 +119,14 @@
       z-index: $zIndex
     .progress
       z-index: $zIndex + 1
-      background-color: #FFD700
+      background-color: #D43C33
     .progress-button
-      width: 14px
-      height: 14px
-      border: 2px solid #FFFFFF
+      width: 10px
+      height: 10px
       border-radius: 50%
       box-sizing: border-box
-      background-color: #FFD700
+      background-color white
       z-index: $zIndex + 2
-      top: -6px
+      top: -4px
       margin-left: -5px
 </style>

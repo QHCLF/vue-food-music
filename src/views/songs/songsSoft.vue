@@ -1,7 +1,7 @@
 <template>
     <div class="songsSoft">
         <div class="Songs">
-            <div v-for="playlist in playlists" :key="playlist.id" class="contain">
+            <div v-for="playlist in playlists" :key="playlist.id" class="contain" @click="selectSong(playlist)">
                 <img :src="playlist.coverImgUrl"  class="item">
                 <span class="describe">{{playlist.name}}</span>
             </div>
@@ -14,6 +14,7 @@
 <script>
     import {ERR_OK} from '../../utill/config'
     import {getSoftSongs} from '../../api/songs.js'
+    import {mapMutations} from 'vuex'
     export default {
         name:"soft",
         data(){
@@ -31,7 +32,14 @@
                         this.playlists = res.data.playlists
                     }
                 })
-            }
+            },
+            selectSong (item) {
+                this.$router.push(`${'songDetail/' + item.id}`);
+                this.setTopList(item);
+            },
+            ...mapMutations({
+                setTopList: 'SET_TOP_LIST'
+            })
         }
     }
 </script>

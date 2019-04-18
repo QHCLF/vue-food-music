@@ -1,5 +1,8 @@
 <template>
     <div class="player" v-show="playlist.length > 0">
+        <div class="bg">
+            <img :src="currentSong[0].al.picUrl" class="bgImg"/>
+        </div>
         <transition name="normal">
             <div class="normal-player" v-show="fullScreen">
                 <div class="background">
@@ -7,8 +10,8 @@
                         <div class="back" @click="back">
                              <i class="iconfont icon-jiantouxia"></i>
                         </div>
-                        <h2 class="title" v-html="currentSong[0].name"></h2>
-                        <h4 class="subTitle" v-html="currentSong[0].ar[0].name"></h4>
+                        <p class="title" v-html="currentSong[0].name"></p>
+                        <p class="subTitle" v-html="currentSong[0].ar[0].name"></p>
                     </div>
                     <div class="middle">
                         <transition name="middleL">
@@ -21,7 +24,13 @@
 
                          </transition>
                     </div>
+                    <div class="middleR">
+                        <transition name="middleR">
+                            <scroll class="middle-r" ref="lyricList">
 
+                            </scroll>
+                        </transition>
+                    </div>
                     <div class="bottom">
                         <span class="current-time">{{this.currentTime | getTime}}</span>
                         <div class="play-progress">
@@ -55,23 +64,32 @@
             <div class="mini-player" v-show="!fullScreen">
                 <div class="icon">
                     <transition name="miniPic">
-                            <div class="img" ref="miniPic">
+                            <div class="img rotate" :style="imgStyle" @click="change">
                                 <img :src="currentSong[0].al.picUrl" class="image"  width="40px" height="40px"/>
                             </div>
                     </transition>
 <!--                    <img :src="currentSong[0].al.picUrl" class="miniIcon" width="40px" height="40px">-->
                 </div>
-               <div class="text">
-                   <p class="title" v-html="currentSong[0].name"></p>
-                   <p class="singer" v-html="currentSong[0].ar[0].name"></p>
+                <div class="mini-play-progress">
+                    <progress-bar :progress="playProgress"
+                                  :disableButton="true"/>
                 </div>
-                <div class="contorl" @click="playOrPause">
-                    <i :class="playButtonClass"></i>
+                <div class="center">
+                    <span class="title" v-html="currentSong[0].name"></span>
+                    <span class="singer" v-html="currentSong[0].ar[0].name"></span>
+
+                    <div class="mini-button">
+                        <div class="contorl" @click="playOrPause">
+                            <i :class="playButtonClass"></i>
+                        </div>
+
+                        <div class="next">
+                            <i class="iconfont icon-yduixiayiqu" @click="next"></i>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div class="next">
-                    <i class="iconfont icon-yduixiayiqu" @click="next"></i>
-                </div>
 
             </div>
         </transition>
@@ -92,6 +110,8 @@
 
     import {getSongsUrl, checked} from "../api/songs";
     import ProgressBar from "./ProgressBar"
+    import Lyric from 'lyric-parser'
+    import scroll from "./scroll"
     import {mapGetters, mapMutations} from 'vuex'
 
     export default {
@@ -105,7 +125,8 @@
                 playStatus: false,
                 currentPlayMode: 0,
                 toastShow: false,
-                playModes:['icon-xunhuanbofang', 'icon-suijibofang', 'icon-danquxunhuan']
+                playModes:['icon-xunhuanbofang', 'icon-suijibofang', 'icon-danquxunhuan'],
+                currentShow: false
             }
         },
         created(){
@@ -138,6 +159,7 @@
             _startImgRotate() {
                 if (this.$refs.songImg.className.indexOf("rotate") === -1) {
                     this.$refs.songImg.classList.add("rotate");
+
                 } else {
                     this.$refs.songImg.style.webkitAnimationPlayState = "running";
                     this.$refs.songImg.style.animationPlayState = "running";
@@ -244,6 +266,9 @@
                         break;
                 }
             },
+            change(){
+                this.setFullScreen(true);
+            },
 
             ...mapMutations({
                 setFullScreen: 'SET_FULL_SCREEN',
@@ -272,6 +297,17 @@
             ]),
             playButtonClass() {
                 return this.playStatus === true ? "iconfont icon-zanting1-copy" : "iconfont icon-yduibofang";
+            },
+            imgStyle() {
+                let style = {};
+                if (this.playStatus === true) {
+                    style.webkitAnimationPlayState = "running";
+                    style.animationPlayState = "running";
+                } else {
+                    style.webkitAnimationPlayState = "paused";
+                    style.animationPlayState = "paused";
+                }
+                return style;
             }
         },
         mounted() {
@@ -288,7 +324,9 @@
 
         },
         components:{
-            ProgressBar
+            ProgressBar,
+            scroll,
+            Lyric
         }
      }
 
@@ -315,16 +353,45 @@
         right: 0;
         top: 0;
         z-index: 1500;
-        background-color: pink;
         overflow-y: hidden;
-    }
+        background-image url("../assets/play_bg.jpg");
+        background-repeat: no-repeat
+        background-size: cover
 
+    }
+    .bg{
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 1000px;
+        position: absolute;
+        opacity: 0.6;
+        filter blur(20px)
+    }
+        .bg .bgImg{
+            width: 130%;
+            height: 100%;
+            margin-left: -20%;
+            margin-top: -50%;
+        }
+    .normal-player{
+        position relative;
+    }
     .back{
         width: 3rem;
         height: 3rem;
         line-height: 3rem;
     }
-
+        .back i{
+            font-size 26px;
+        }
+    p{
+        width: 80%;
+        height: 2rem;
+        padding-left: 12%;
+        color: whitesmoke;
+        font-size: 18px;
+    }
     .title{
         margin: 0;
         margin-top: -2.5rem;
@@ -340,8 +407,7 @@
         padding-left: 3.7rem;
         padding-top: 3rem;
         box-sizing: border-box;
-        background-color: green;
-        margin-top: 5rem;
+        margin-top: 2rem;
     }
 
     .middleL{
@@ -350,6 +416,10 @@
         border-radius: 50%;
         border: 0.5rem solid gray;
     }
+        .middleL .img{
+            width 100%;
+            height 100%;
+        }
     .play-progress{
         width 70%;
         margin-left 15%;
@@ -361,6 +431,7 @@
         position: relative;
         left: -10rem;
         top: 0.65rem;
+        color whitesmoke
     }
     .total-time{
         width: 5%;
@@ -368,6 +439,7 @@
         position: relative;
         left: 10rem;
         top: -0.65rem;
+        color whitesmoke
     }
     .image{
         width: 100%;
@@ -377,7 +449,8 @@
 
     .bottom{
         width: 100%;
-        height: 11rem;
+        height: 14rem;
+        padding-top 2rem;
     }
 
     .play-model-button{
@@ -409,52 +482,69 @@
     }
     .mini-player{
         width: 100%;
-        height: 5rem;
-        background-color: #42b983;
+        height: 54px;
+        background-color: whitesmoke;
         position: fixed;
         bottom: 0;
     }
     .mini-player .icon{
         width: 18%;
-        height: 100%;
+        height: 65px;
         float: left;
     }
-        .mini-player .text{
-            width: 50%;
-            height: 100%;
-            background-color: pink;
-            margin-left 20%;
+        .mini-player .icon .img{
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            left: 10px;
+            top: -6px;
+            border: 2px solid #EEEEEE;
+            border-radius: 50%;
         }
-            .mini-player .text .title{
-                width: 100%;
-                margin 0;
-                text-align left;
-                box-sizing: border-box;
-                padding-top: 1rem;
-                height: 50%;
-                background-color: gray;
-            }
-                .mini-player .text .singer{
-                    width: 100%;
-                    height 35%;
-                    margin 0;
-                    text-align left
-                    background-color pink;
-                }
-
-    .contorl{
-        width: 30px;
-        float: right;
-        margin-top: -58px;
-        margin-right: 80px;
-        background-color: beige;
+    .mini-player .center{
+        height: 54px;
+        padding: 0px 15px 0 68px;
+        box-sizing: border-box;
+        text-overflow: ellipsis;
     }
-
-    .next{
-        width: 30px;
-        float: right;
-        margin-top: -58px;
-        margin-right 30px;
+            .mini-player .center .title{
+                margin-top: 5px;
+                width: 220px;
+                height: 18px;
+                box-sizing border-box
+                font-size 14px
+                text-align left
+                float left
+                overflow hidden
+            }
+                .mini-player .center .singer{
+                    margin-top: 2px;
+                    width: 220px;
+                    height: 12px;
+                    float: left;
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    text-align: left;
+                }
+            .mini-player .mini-button{
+                position: absolute;
+                top: 5px;
+                right: 15px;
+                padding: 1px;
+                height: 40px;
+            }
+                .contorl{
+                    float left
+                    margin-right 10px
+                }
+                .next{
+                    float right
+                }
+    .mini-play-progress{
+        width 76%
+        height 3px
+        overflow hidden
+        margin-left 20%
     }
     &.normal-enter-active, &.normal-leave-active{
         transition: transform .3s
@@ -465,6 +555,15 @@
         transform: rotateZ(30deg) translate3d(100%, 0, 0)
     }
 
+
+    &.mini-enter-active, &.mini-leave-active{
+        transition: transform .3s
+        transform: rotateZ(0deg) translate3d(0, 0, 0)
+    }
+
+    &.mini-enter, &.mini-leave-to{
+        transform: rotateZ(30deg) translate3d(100%, 0, 0)
+    }
     @keyframes rotate{
         0%{
         transform: rotateZ(0deg);
@@ -477,6 +576,8 @@
     .img.rotate{
         animation : rotate 15s linear infinite;
     }
+
+
 
 
 

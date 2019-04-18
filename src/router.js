@@ -29,6 +29,11 @@ export default new Router({
             component: () => import('./views/songs/SongsRecommend.vue')
         },
         {
+          path: '/song/songDetail/:songDetail',
+          name: '/songDetail',
+          component: () =>import('./views/songs/songDetail.vue')
+        },
+        {
           path:'/song/songsHigh',//精品歌单
           name:'/songsHigh',
           component: () => import('./views/songs/songsHigh.vue')
@@ -53,7 +58,12 @@ export default new Router({
     {
       path: '/ranking',
       name: 'ranking',
-      component: () => import('./views/Ranking.vue')
+      component: () => import('./views/ranking/Ranking.vue'),
+      children: [{
+        path: '/ranking/:rankingId',
+        name: '/rankingDetail',
+        component: () => import('./views/ranking/rankingDetail.vue')
+      }]
     },
     {
       path: '/search',
