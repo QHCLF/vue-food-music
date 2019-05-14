@@ -57,8 +57,6 @@
             //     }
             //     return str;
             // },
-
-
             ...mapMutations({
                 setItem: 'SET_ITEM'
             })
