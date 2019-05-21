@@ -14,8 +14,8 @@
 
 <script>
      import {getSongsDtail} from '../../api/songs.js'
-    import {getRecommendListDetail} from '../../api/recommend.js'
-    import HeaderBack from '@/components/Header.vue'
+     import {getRecommendListDetail} from '../../api/recommend.js'
+     import HeaderBack from '@/components/Header.vue'
      import playList from '@/components/playList.vue'
     // import {ERR_OK} from '../../utill/config'
     import {mapGetters, mapMutations} from 'vuex'

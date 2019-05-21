@@ -68,7 +68,7 @@ export default new Router({
     {
       path: '/search',
       name: 'search',
-      component: () => import('./views/Search.vue')
+      component: () => import('./views/search/Search.vue')
     },{
       path: '/dj',
       name: 'dj',

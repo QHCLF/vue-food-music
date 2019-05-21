@@ -146,7 +146,7 @@
         transform:scale(0.1)
     }
     h3{
-        width: 100%;
+        width: 80%;
         height: 2rem;
         margin-left: 0.5rem;
         text-align: left;

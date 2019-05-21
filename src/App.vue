@@ -55,7 +55,7 @@
 </script>
 
 <style>
-  @import '//at.alicdn.com/t/font_1121604_g8kbr7v35u6.css';
+  @import '//at.alicdn.com/t/font_1121604_0v2xs37dtth.css';
 
   a:visited{
     color: #2c3e50;
